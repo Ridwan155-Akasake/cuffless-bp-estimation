@@ -1,6 +1,0 @@
-dataset,model,mae_mean,r2_mean,best_params
-kaggle,rf,11.208526021277,0.1171011465237989,"{'n_estimators': 800, 'min_samples_leaf': 5, 'max_features': 1.0, 'max_depth': 12}"
-kaggle,ridge,11.233820699569174,0.1169097841148753,{'ridge__alpha': 100.0}
-kaggle,catboost,11.448793535556579,0.08366240259288997,"{'subsample': 0.7, 'learning_rate': 0.03, 'l2_leaf_reg': 7, 'iterations': 800, 'depth': 6}"
-kaggle,adaboost,11.548767496699938,0.096689567939872,"{'estimator__n_estimators': 600, 'estimator__loss': 'exponential', 'estimator__learning_rate': 0.03}"
-kaggle,lgbm,12.315682671692924,-0.0247467022975594,"{'estimator__subsample': 1.0, 'estimator__num_leaves': 63, 'estimator__n_estimators': 800, 'estimator__min_child_samples': 40, 'estimator__learning_rate': 0.02, 'estimator__colsample_bytree': 0.8}"
