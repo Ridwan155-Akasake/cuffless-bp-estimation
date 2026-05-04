@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Data</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">IoT-BP Monitor</a>
+      <div class="nav-toggle" id="menu-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="measure.html" class="nav-link">Measure Blood Pressure</a></li>
+        <li class="nav-item"><a href="collect.html" class="nav-link">Data Collection</a></li>
+        <li class="nav-item"><a href="data.html" class="nav-link">All Data</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <div class="content">
+      <h1 class="page-title">All Data</h1>
+
+      <div id="no-data" class="no-data" style="display: none;">
+        <div class="no-data-icon">📋</div>
+        <div class="no-data-text">No data available</div>
+        <p class="no-data-subtitle">Start by collecting some data or measuring blood pressure</p>
+      </div>
+
+      <div id="data-table-section" class="table-container" style="display: none;">
+        <div class="table-header">
+          <span>Total Records: <span id="total-count">0</span></span>
+          <button id="refresh-button" class="btn secondary small">🔄 Refresh</button>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Serial No.</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Height (cm)</th>
+                <th>Weight (kg)</th>
+                <th>BMI</th>
+                <th>Heart Rate</th>
+                <th>Oxygen Level</th>
+                <th>Systolic BP</th>
+                <th>Diastolic BP</th>
+              </tr>
+            </thead>
+            <tbody id="data-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

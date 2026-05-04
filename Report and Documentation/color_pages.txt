@@ -1,0 +1,37 @@
+actual page: 31		doc page: 22
+actual page: 33		doc page: 24
+actual page: 35		doc page: 26
+actual page: 36		doc page: 27
+actual page: 37		doc page: 28
+actual page: 40		doc page: 31
+actual page: 41		doc page: 32
+actual page: 42		doc page: 33
+actual page: 43		doc page: 34
+actual page: 44		doc page: 35
+actual page: 45		doc page: 36
+actual page: 46		doc page: 37
+actual page: 47		doc page: 38
+actual page: 48		doc page: 39
+actual page: 49		doc page: 40
+actual page: 50		doc page: 41
+actual page: 51		doc page: 42
+actual page: 52		doc page: 43
+actual page: 53		doc page: 44
+actual page: 54		doc page: 45
+actual page: 55		doc page: 46
+actual page: 56		doc page: 47
+actual page: 59		doc page: 50
+actual page: 60		doc page: 51
+actual page: 68		doc page: 59
+
+
+
+
+Here’s the corrected list of actual pages with consecutive ranges:
+
+* Actual pages 31
+* Actual pages 33
+* Actual pages 35 to 37
+* Actual pages 40 to 56
+* Actual pages 59 to 60
+* Actual page 68

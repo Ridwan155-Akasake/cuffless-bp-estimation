@@ -1,0 +1,193 @@
+const express = require("express");
+const cors = require("cors");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+require("dotenv").config();
+
+const app = express();
+const port = process.env.PORT || 5000;
+
+app.use(express.json());
+app.use(cors({ origin: "*", credentials: true, optionSuccessStatus: 200 }));
+
+// Connect to MongoDB
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.dcnqn.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+async function run() {
+  try {
+
+    await client.connect();
+    const database = client.db("BP_Measuring");
+    const ppgCollection = database.collection("rawDataCollection");
+
+    // 🟢 GET: Home ping
+    app.get("/", (req, res) => {
+      res.send({ message: "Welcome to the PPG BP API", status: "OK" });
+    });
+
+    // 🟢 POST: Insert new PPG record
+    app.post("/api/ppgData", async (req, res) => {
+      try {
+        const { ir, red, spo2, heartRate } = req.body;
+        const now = new Date();
+        const sessionId = now.toISOString().replace(/[-:T.]/g, "").slice(0, 14);
+
+        // Find the current max serialNumber
+        const lastEntry = await ppgCollection.find().sort({ serialNumber: -1 }).limit(1).toArray();
+        const newSerial = lastEntry.length ? lastEntry[0].serialNumber + 1 : 1;
+
+
+        const ppgData = {
+          serialNumber: newSerial,
+          sessionId,
+          ir,
+          red,
+          spo2,
+          heartRate,
+          date: now.toISOString().split("T")[0],
+          time: now.toTimeString().split(" ")[0],
+          userAge: null,
+          userGender: null,
+          userHeight: null,
+          userWeight: null,
+          systolic_BP: null,
+          diastolic_BP: null,
+        };
+
+        const result = await ppgCollection.insertOne(ppgData);
+        res.json({ 
+          message: "PPG data inserted successfully!", 
+          sessionId,
+          serialNumber: newSerial, 
+          insertedId: result.insertedId 
+        });
+      } catch (error) {
+        console.error("Error inserting PPG data:", error);
+        res.status(500).json({ error: "Failed to insert PPG data." });
+      }
+    });
+
+    app.put("/api/ppgData/latest", async (req, res) => {
+      try {
+        const {
+          userAge,
+          userGender,
+          userHeight,
+          userWeight,
+          systolic_BP,
+          diastolic_BP
+        } = req.body;
+    
+        // Find the latest document (highest serial number)
+        const latestDoc = await ppgCollection.find().sort({ serialNumber: -1 }).limit(1).toArray();
+        if (!latestDoc.length) {
+          return res.status(404).json({ error: "No documents found." });
+        }
+    
+        const latestId = latestDoc[0]._id;
+    
+        const result = await ppgCollection.updateOne(
+          { _id: latestId },
+          {
+            $set: {
+              userAge,
+              userGender,
+              userHeight,
+              userWeight,
+              systolic_BP,
+              diastolic_BP
+            }
+          }
+        );
+    
+        res.json({ message: "Latest document updated successfully!", modifiedCount: result.modifiedCount });
+      } catch (error) {
+        console.error("Error updating latest document:", error);
+        res.status(500).json({ error: "Failed to update." });
+      }
+    });
+    
+
+    // 🟠 PUT: Update demographics and BP
+    app.put("/api/ppgData/:id", async (req, res) => {
+      try {
+        const id = new ObjectId(req.params.id);
+        const {
+          userAge,
+          userGender,
+          userHeight,
+          userWeight,
+          systolic_BP,
+          diastolic_BP,
+        } = req.body;
+
+        const result = await ppgCollection.updateOne(
+          { _id: id },
+          {
+            $set: {
+              userAge,
+              userGender,
+              userHeight,
+              userWeight,
+              systolic_BP,
+              diastolic_BP,
+            },
+          }
+        );
+
+        if (result.matchedCount === 0) {
+          return res.status(404).json({ error: "Data not found." });
+        }
+
+        res.json({ message: "PPG session updated!", modifiedCount: result.modifiedCount });
+      } catch (error) {
+        console.error("Error updating PPG session:", error);
+        res.status(500).json({ error: "Failed to update." });
+      }
+    });
+
+    // 🟢 GET: All data
+    app.get("/api/ppgData", async (req, res) => {
+      try {
+        const result = await ppgCollection.find({}).toArray();
+        res.send(result);
+      } catch (error) {
+        console.error("Error retrieving data:", error);
+        res.status(500).json({ error: "Failed to retrieve data." });
+      }
+    });
+
+    // 🟡 DELETE (optional): Delete a record
+    app.delete("/api/ppgData/:id", async (req, res) => {
+      try {
+        const id = new ObjectId(req.params.id);
+        const result = await ppgCollection.deleteOne({ _id: id });
+        if (result.deletedCount === 0) {
+          return res.status(404).json({ error: "Data not found." });
+        }
+        res.json({ message: "Deleted successfully!" });
+      } catch (error) {
+        console.error("Error deleting data:", error);
+        res.status(500).json({ error: "Failed to delete." });
+      }
+    });
+
+    await client.db("admin").command({ ping: 1 });
+    console.log("✅ MongoDB connected!");
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err);
+  }
+}
+
+run().catch(console.dir);
+
+// 🟢 Start server
+app.listen(port, () => {
+  console.log(`🚀 Server is running at http://localhost:${port}`);
+});

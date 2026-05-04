@@ -1,0 +1,78 @@
+Target: systolic_BP
+Best: rf
+  rf | MAE 10.370 ± 0.427 | R2 0.094
+  ridge | MAE 10.434 ± 0.619 | R2 0.039
+  catboost | MAE 10.551 ± 0.565 | R2 0.059
+  lgbm | MAE 11.430 ± 0.645 | R2 -0.075
+Features (top 30):
+  - userBmi
+  - userWeight
+  - morph_t_to_peak_frac_mean
+  - dppg_mean
+  - dppg_min
+  - morph_t_to_peak_frac_std
+  - bp_3_8
+  - morph_width75_mean
+  - morph_slope_ratio_iqr
+  - spec_bandwidth
+  - d2ppg_min
+  - morph_notch_time_frac_iqr
+  - userGender
+  - morph_width75_iqr
+  - morph_aix_median
+  - dppg_max
+  - morph_area_std
+  - morph_amp_median
+  - spec_centroid
+  - morph_amp_iqr
+  - morph_notch_time_frac_std
+  - morph_period_median
+  - raw_kurt
+  - morph_width50_std
+  - morph_period_iqr
+  - pfd
+  - morph_min_fall_slope_median
+  - morph_aix_iqr
+  - morph_t_to_peak_frac_median
+  - userHeight
+SHAP: images\shap_systolic_BP_rf.png
+
+Target: diastolic_BP
+Best: rf
+  rf | MAE 7.415 ± 0.536 | R2 -0.027
+  ridge | MAE 7.457 ± 0.679 | R2 -0.007
+  catboost | MAE 7.595 ± 0.558 | R2 -0.048
+  lgbm | MAE 8.576 ± 0.754 | R2 -0.338
+Features (top 30):
+  - morph_aix_iqr
+  - userBmi
+  - raw_mean
+  - hjorth_mobility
+  - morph_aix_std
+  - morph_rise_time_iqr
+  - morph_period_median
+  - userAge
+  - userWeight
+  - morph_width50_std
+  - d2ppg_min
+  - morph_aix_mean
+  - userHeight
+  - morph_width50_iqr
+  - morph_width75_std
+  - sqi_power_ratio
+  - morph_area_std
+  - raw_skew
+  - morph_period_std
+  - morph_area_iqr
+  - morph_t_to_peak_frac_mean
+  - morph_max_rise_slope_iqr
+  - morph_rise_time_std
+  - morph_area_mean
+  - morph_pi_median
+  - morph_pi_iqr
+  - morph_notch_time_frac_mean
+  - morph_notch_time_frac_std
+  - morph_slope_ratio_std
+  - morph_amp_iqr
+SHAP: images\shap_diastolic_BP_rf.png
+

@@ -1,0 +1,6 @@
+dataset,model,mae_mean,r2_mean,best_params
+combined,rf,9.876046630835466,0.1684784098179951,"{'n_estimators': 800, 'min_samples_leaf': 3, 'max_features': 'sqrt', 'max_depth': 12}"
+combined,ridge,10.036045536083456,0.148391901200265,{'ridge__alpha': 100.0}
+combined,catboost,10.136320912244518,0.12705009830800065,"{'subsample': 0.7, 'learning_rate': 0.03, 'l2_leaf_reg': 7, 'iterations': 800, 'depth': 6}"
+combined,adaboost,10.256477125811273,0.1279963769032424,"{'estimator__n_estimators': 200, 'estimator__loss': 'square', 'estimator__learning_rate': 0.03}"
+combined,lgbm,10.57211355379187,0.0441827448470381,"{'estimator__subsample': 0.7, 'estimator__num_leaves': 31, 'estimator__n_estimators': 800, 'estimator__min_child_samples': 10, 'estimator__learning_rate': 0.03, 'estimator__colsample_bytree': 0.7}"

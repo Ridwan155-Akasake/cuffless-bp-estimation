@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Collection</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">IoT-BP Monitor</a>
+      <div class="nav-toggle" id="menu-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="measure.html" class="nav-link">Measure Blood Pressure</a></li>
+        <li class="nav-item"><a href="collect.html" class="nav-link">Data Collection</a></li>
+        <li class="nav-item"><a href="data.html" class="nav-link">All Data</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <div class="content">
+      <h1 class="page-title">Data Collection</h1>
+
+      <div class="form-container">
+        <div class="form-grid">
+          <div class="input-group">
+            <label for="c-age">Age</label>
+            <input type="number" id="c-age" placeholder="Enter your age">
+          </div>
+          <div class="input-group">
+            <label for="c-gender">Gender</label>
+            <select id="c-gender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="c-height">Height (feet & inch)</label>
+            <div class="height-wrapper">
+              <input type="number" id="c-feet" placeholder="Feet" min="0" class="height-field">
+              <input type="number" id="c-inches" placeholder="Inches" min="0" max="11" class="height-field">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="c-weight">Weight (kg)</label>
+            <input type="number" id="c-weight" placeholder="Enter weight in kg">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group">
+            <label for="c-systolic">Systolic BP (mmHg)</label>
+            <input type="number" id="c-systolic" placeholder="Enter systolic blood pressure">
+          </div>
+          <div class="input-group">
+            <label for="c-diastolic">Diastolic BP (mmHg)</label>
+            <input type="number" id="c-diastolic" placeholder="Enter diastolic blood pressure">
+          </div>
+        </div>
+
+        <button class="btn primary full-width" onclick="commitCollectedData(event)">💾 Commit Data</button>
+
+        <button class="btn secondary full-width" onclick="fetchSensorData(event)">🔄 Fetch Latest Data</button>
+
+        <div id="sensor-section" class="sensor-data" style="display: none;">
+          <h3>Latest Sensor Data</h3>
+          <div class="sensor-grid">
+            <div class="sensor-item fixed">
+              <span class="heart-icon">❤️</span>
+              <div class="sensor-info">
+                <span class="sensor-label">Heart Rate</span>
+                <span class="sensor-value" id="sensor-heart-rate">-- BPM</span>
+              </div>
+            </div>
+            <div class="sensor-item fixed">
+              <span class="oxygen-icon">🫁</span>
+              <div class="sensor-info">
+                <span class="sensor-label">Oxygen Level</span>
+                <span class="sensor-value" id="sensor-oxygen-level">--%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- IR Graph -->
+          <div class="sensor-graph-container">
+            <canvas id="irGraph" width="400" height="200"></canvas>
+          </div>
+
+          <!-- RED Graph -->
+          <div class="sensor-graph-container">
+            <canvas id="redGraph" width="400" height="200"></canvas>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
