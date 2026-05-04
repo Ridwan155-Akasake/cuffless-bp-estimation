@@ -256,7 +256,7 @@ see [`Report and Documentation/`](Report%20and%20Documentation/) — particularl
 
 ## Authors
 
-- **Ridwan Sharif** (ID 213-15-4381) — primary author and implementer.
+- **Ridwan Sharif** — primary author and implementer.
 - **Arif Mahmud** — supervisor / co-author.
 
 Daffodil International University, Dhaka-1216, Bangladesh.
